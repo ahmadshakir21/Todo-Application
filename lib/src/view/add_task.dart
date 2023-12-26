@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/src/utils/custom_appbar.dart';
 
-class TaskDetail extends StatelessWidget {
-  const TaskDetail({super.key});
+class AddTask extends StatelessWidget {
+  const AddTask({super.key});
 
   @override
   Widget build(BuildContext context) {

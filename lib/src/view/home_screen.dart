@@ -3,8 +3,18 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_app/src/utils/app_color.dart';
 import 'package:todo_app/src/utils/custom_appbar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool isTaskFinish = false;
+  Color taskCircleColor = Colors.white;
+  Color borderCircleColor = AppColors.buttonColor;
+  IconData iconData = Icons.done_rounded;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +26,7 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
-            const CustomAppBar(iconData: Icons.menu, iconDataImage: Icons.person),
+            CustomAppBar(iconData: Icons.menu, iconDataImage: Icons.person, onPressed: () {}),
             SizedBox(
               height: height * 0.025,
             ),
@@ -49,14 +59,14 @@ class HomeScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.labelSmall,
                     ),
                     SizedBox(
-                      height: height * 0.005,
+                      height: height * 0.03,
                     ),
                     Text(
-                      "Personal",
+                      "Completion 30/40",
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                     SizedBox(
-                      height: height * 0.03,
+                      height: height * 0.015,
                     ),
                     Container(
                       width: width * 0.9,
@@ -97,7 +107,7 @@ class HomeScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    context.go('/task_detail_screen');
+                    context.goNamed('task_detail_screen');
                   },
                   child: Container(
                     width: width * 1,
@@ -106,15 +116,32 @@ class HomeScreen extends StatelessWidget {
                     decoration: BoxDecoration(color: AppColors.todoTileColor, borderRadius: BorderRadius.circular(10)),
                     child: Row(
                       children: [
-                        Container(
-                          height: height * 0.06,
-                          width: width * 0.06,
-                          margin: const EdgeInsets.symmetric(horizontal: 15),
-                          decoration: BoxDecoration(border: Border.all(color: AppColors.buttonColor, width: 2.5), shape: BoxShape.circle),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isTaskFinish = !isTaskFinish;
+                            });
+                          },
+                          child: Container(
+                            height: height * 0.065,
+                            width: width * 0.065,
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            decoration: BoxDecoration(
+                                color: isTaskFinish ? AppColors.containerForImage : taskCircleColor,
+                                border: Border.all(color: isTaskFinish ? AppColors.containerForImage : borderCircleColor, width: 2.5),
+                                shape: BoxShape.circle),
+                            child: isTaskFinish
+                                ? Icon(
+                                    iconData,
+                                    color: Colors.white,
+                                    size: 20,
+                                  )
+                                : null,
+                          ),
                         ),
                         Text(
                           "My Task My Task",
-                          style: Theme.of(context).textTheme.labelSmall!.copyWith(color: AppColors.textColorPrimary),
+                          style: Theme.of(context).textTheme.titleMedium!.copyWith(decoration: isTaskFinish ? TextDecoration.lineThrough : TextDecoration.none),
                         ),
                       ],
                     ),
@@ -126,7 +153,9 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          context.goNamed('add_task_screen');
+        },
         backgroundColor: AppColors.buttonColor,
         child: const Icon(
           Icons.add,
