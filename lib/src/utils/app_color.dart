@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static const Color primaryColor = Color(0xFF2f3c61);
+
   static const Color scaffoldColor = Color(0xFFe7eaf2);
   static const Color todoTileColor = Colors.white;
 
