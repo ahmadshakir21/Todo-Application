@@ -139,9 +139,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 : null,
                           ),
                         ),
-                        Text(
-                          "My Task My Task",
-                          style: Theme.of(context).textTheme.titleMedium!.copyWith(decoration: isTaskFinish ? TextDecoration.lineThrough : TextDecoration.none),
+                        Expanded(
+                          child: Text(
+                            "My Task My Tasksdakjlashdkjsah fkjasdfkjasdkhkjh",
+                            style:
+                                Theme.of(context).textTheme.titleMedium!.copyWith(decoration: isTaskFinish ? TextDecoration.lineThrough : TextDecoration.none),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),
