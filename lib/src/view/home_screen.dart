@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
-            CustomAppBar(iconData: Icons.menu, iconDataImage: Icons.person, onPressed: () {}),
+            CustomAppBar(iconData: Icons.menu, appbarTitle: "Home Screen", horizontal: width * 0.144, onPressed: () {}),
             SizedBox(
               height: height * 0.025,
             ),

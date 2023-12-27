@@ -6,8 +6,8 @@ import 'package:todo_app/src/utils/custom_textfield.dart';
 
 import '../utils/app_color.dart';
 
-class AddTask extends StatelessWidget {
-  const AddTask({super.key});
+class UpdateTask extends StatelessWidget {
+  const UpdateTask({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class AddTask extends StatelessWidget {
                 children: [
                   CustomAppBar(
                       iconData: Icons.arrow_back_rounded,
-                      appbarTitle: "Add Task Screen",
+                      appbarTitle: "Update Task Screen",
                       onPressed: () {
-                        context.goNamed('home_screen');
+                        context.goNamed('task_detail_screen');
                       }),
                   SizedBox(
                     height: height * 0.03,
@@ -39,6 +39,6 @@ class AddTask extends StatelessWidget {
                 ],
               ),
             ),
-            floatingActionButton: CustomButton(buttonText: "Add New Task", buttonColor: AppColors.buttonColor, onPressed: () {})));
+            floatingActionButton: CustomButton(buttonText: "Save", buttonColor: AppColors.buttonColor, onPressed: () {})));
   }
 }

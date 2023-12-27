@@ -3,25 +3,27 @@ import 'package:todo_app/src/utils/app_color.dart';
 
 class CustomAppBar extends StatelessWidget {
   final IconData iconData;
-  final IconData iconDataImage;
+  final String appbarTitle;
   final Function onPressed;
-  const CustomAppBar({super.key, required this.iconData, required this.iconDataImage, required this.onPressed});
+  double? horizontal;
+  CustomAppBar({super.key, required this.iconData, required this.appbarTitle, required this.onPressed, this.horizontal});
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(onPressed: () => onPressed(), color: AppColors.iconColorSecondary, icon: Icon(iconData)),
-        Container(
-          width: 35,
-          height: 35,
-          decoration: BoxDecoration(color: AppColors.containerForImage, borderRadius: BorderRadius.circular(5)),
-          child: Icon(
-            iconDataImage,
-            color: Colors.white,
+        SizedBox(
+          width: width * 0.05,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: horizontal ?? 0.0),
+          child: Text(
+            appbarTitle,
+            style: Theme.of(context).textTheme.labelLarge,
           ),
-        )
+        ),
       ],
     );
   }
