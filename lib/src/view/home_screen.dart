@@ -11,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isTaskFinish = false;
   Color taskCircleColor = Colors.white;
   Color borderCircleColor = AppColors.buttonColor;
@@ -22,11 +23,67 @@ class _HomeScreenState extends State<HomeScreen> {
     double height = MediaQuery.of(context).size.height;
     return SafeArea(
         child: Scaffold(
+      key: _scaffoldKey,
+      drawer: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+              decoration: const BoxDecoration(color: AppColors.secondaryColor),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    width: width * 0.22,
+                    height: height * 0.12,
+                    decoration: const BoxDecoration(
+                      color: AppColors.scaffoldColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      "Drawer Header",
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(color: AppColors.scaffoldColor),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              )),
+          ListTile(
+              leading: const Icon(
+                Icons.add_box_outlined,
+                color: AppColors.primaryColor,
+              ),
+              title: Text(
+                "Add New Task",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              onTap: () {
+                context.goNamed('add_task_screen');
+              }),
+          ListTile(
+              leading: const Icon(Icons.lock_outline_rounded, color: AppColors.primaryColor),
+              title: Text(
+                "Set a password",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              onTap: () {}),
+        ],
+      )),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
-            CustomAppBar(iconData: Icons.menu, appbarTitle: "Home Screen", horizontal: width * 0.144, onPressed: () {}),
+            CustomAppBar(
+                iconData: Icons.menu,
+                appbarTitle: "Home Screen",
+                horizontal: width * 0.144,
+                onPressed: () {
+                  _scaffoldKey.currentState!.openDrawer();
+                }),
             SizedBox(
               height: height * 0.025,
             ),
@@ -38,69 +95,78 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: height * 0.025,
             ),
-            Text(
-              "My Tasks",
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-            SizedBox(
-              height: height * 0.015,
-            ),
-            Container(
-              width: width * 1,
-              height: height * 0.15,
-              decoration: BoxDecoration(color: AppColors.todoTileColor, borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "40 Tasks",
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
-                    SizedBox(
-                      height: height * 0.03,
-                    ),
-                    Text(
-                      "Completion 30/40",
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                    SizedBox(
-                      height: height * 0.015,
-                    ),
-                    Container(
-                      width: width * 0.9,
-                      height: height * 0.01,
-                      decoration: BoxDecoration(
-                        color: AppColors.todoTaskVolume,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Stack(
-                        children: [
-                          Container(
-                              width: width * 0.7,
-                              height: height * 0.01,
-                              decoration: BoxDecoration(
-                                color: AppColors.buttonColor,
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                        ],
-                      ),
-                    ),
-                  ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "My Tasks",
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
-              ),
+                Text(
+                  "4/4",
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+              ],
             ),
             SizedBox(
               height: height * 0.015,
             ),
-            Text(
-              "Today Tasks",
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
-            SizedBox(
-              height: height * 0.015,
-            ),
+            // Container(
+            //   width: width * 1,
+            //   height: height * 0.15,
+            //   decoration: BoxDecoration(color: AppColors.todoTileColor, borderRadius: BorderRadius.circular(10)),
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(10),
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: [
+            //         Text(
+            //           "40 Tasks",
+            //           style: Theme.of(context).textTheme.labelSmall,
+            //         ),
+            //         SizedBox(
+            //           height: height * 0.03,
+            //         ),
+            //         Text(
+            //           "Completion 30/40",
+            //           style: Theme.of(context).textTheme.labelMedium,
+            //         ),
+            //         SizedBox(
+            //           height: height * 0.015,
+            //         ),
+            //         Container(
+            //           width: width * 0.9,
+            //           height: height * 0.01,
+            //           decoration: BoxDecoration(
+            //             color: AppColors.todoTaskVolume,
+            //             borderRadius: BorderRadius.circular(10),
+            //           ),
+            //           child: Stack(
+            //             children: [
+            //               Container(
+            //                   width: width * 0.7,
+            //                   height: height * 0.01,
+            //                   decoration: BoxDecoration(
+            //                     color: AppColors.buttonColor,
+            //                     borderRadius: BorderRadius.circular(10),
+            //                   )),
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: height * 0.015,
+            // ),
+            // Text(
+            //   "Today Tasks",
+            //   style: Theme.of(context).textTheme.labelSmall,
+            // ),
+            // SizedBox(
+            //   height: height * 0.015,
+            // ),
             ListView.builder(
               itemCount: 4,
               shrinkWrap: true,
