@@ -70,7 +70,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 "Set a password",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              onTap: () {}),
+              onTap: () {
+                context.goNamed('set_a_password_screen');
+              }),
+          ListTile(
+              leading: const Icon(Icons.settings_outlined, color: AppColors.primaryColor),
+              title: Text(
+                "Settings",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              onTap: () {
+                context.goNamed('settings_screen');
+              }),
         ],
       )),
       body: Padding(
@@ -90,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //TODO: Chnage the name of the user
             Text(
               "What's up , Ahmad",
-              style: Theme.of(context).textTheme.labelLarge,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
             SizedBox(
               height: height * 0.025,

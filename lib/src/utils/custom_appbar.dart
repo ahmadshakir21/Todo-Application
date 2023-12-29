@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return Row(
       children: [
-        IconButton(onPressed: () => onPressed(), color: AppColors.iconColorSecondary, icon: Icon(iconData)),
+        IconButton(onPressed: () => onPressed(), color: AppColors.primaryColor, icon: Icon(iconData)),
         SizedBox(
           width: width * 0.05,
         ),
@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: horizontal ?? 0.0),
           child: Text(
             appbarTitle,
-            style: Theme.of(context).textTheme.labelLarge,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
         ),
       ],
