@@ -16,10 +16,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily,
         textTheme: const TextTheme(
-          labelLarge: TextStyle(color: AppColors.textColorPrimary, fontSize: 20, fontWeight: FontWeight.w700),
-          labelMedium: TextStyle(color: AppColors.textColorPrimary, fontSize: 18, fontWeight: FontWeight.w600),
-          labelSmall: TextStyle(color: AppColors.textColorSecondary, fontSize: 16, fontWeight: FontWeight.w500),
-          titleMedium: TextStyle(color: AppColors.textColorPrimary, fontSize: 16, fontWeight: FontWeight.w500),
+          labelLarge: TextStyle(color: AppColors.textColorPrimary, fontSize: 20, fontWeight: FontWeight.w700, letterSpacing: 1.5),
+          labelMedium: TextStyle(color: AppColors.textColorPrimary, fontSize: 18, fontWeight: FontWeight.w600, letterSpacing: 1.5),
+          labelSmall: TextStyle(color: AppColors.textColorSecondary, fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 1.5),
+          titleMedium: TextStyle(color: AppColors.textColorPrimary, fontSize: 16, fontWeight: FontWeight.w500, letterSpacing: 1.5),
         ),
       ),
       debugShowCheckedModeBanner: false,

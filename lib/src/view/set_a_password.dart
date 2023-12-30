@@ -5,8 +5,17 @@ import 'package:todo_app/src/utils/custom_button.dart';
 
 import '../utils/custom_appbar.dart';
 
-class SetAPassword extends StatelessWidget {
+class SetAPassword extends StatefulWidget {
   const SetAPassword({super.key});
+
+  @override
+  State<SetAPassword> createState() => _SetAPasswordState();
+}
+
+class _SetAPasswordState extends State<SetAPassword> {
+  var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  String inputText = '';
+  List<bool> activeContainers = [false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +39,26 @@ class SetAPassword extends StatelessWidget {
             ////////////////////////////////////////////////////////////////////
             Center(
               child: Text(
-                'Create an account',
-                style: Theme.of(context).textTheme.labelMedium,
+                'Enter Your Pin',
+                style: Theme.of(context).textTheme.labelLarge,
               ),
+            ),
+            SizedBox(
+              height: height * 0.03,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(4, (index) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: activeContainers[index] ? AppColors.buttonColor : AppColors.containerForImage.withOpacity(0.5),
+                  ),
+                );
+              }),
             ),
             SizedBox(
               height: height * 0.03,
@@ -42,6 +68,7 @@ class SetAPassword extends StatelessWidget {
               height: height * 0.6,
               child: GridView.builder(
                 itemCount: 12,
+                physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   childAspectRatio: 0.8 / 0.6,
@@ -54,7 +81,29 @@ class SetAPassword extends StatelessWidget {
                     child: index == 9
                         ? const SizedBox()
                         : MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (index == 11) {
+                                if (inputText.isNotEmpty) {
+                                  inputText = inputText.substring(0, inputText.length - 1);
+                                  for (int i = 0; i <= inputText.length; i++) {
+                                    activeContainers[inputText.length] = false;
+                                    setState(() {});
+                                  }
+                                  print(inputText);
+                                  print(activeContainers);
+                                }
+                              } else {
+                                if (inputText.length < 4) {
+                                  inputText = inputText + numbers[index == 10 ? index - 1 : index].toString();
+                                  for (int i = 0; i < inputText.length; i++) {
+                                    activeContainers[i] = true;
+                                    setState(() {});
+                                  }
+                                  print(inputText);
+                                  print(activeContainers);
+                                }
+                              }
+                            },
                             color: AppColors.primaryColor,
                             minWidth: 60,
                             height: 60,
@@ -64,15 +113,10 @@ class SetAPassword extends StatelessWidget {
                                     Icons.backspace_outlined,
                                     color: AppColors.scaffoldColor,
                                   )
-                                : index == 10
-                                    ? Text(
-                                        "0",
-                                        style: Theme.of(context).textTheme.labelMedium!.copyWith(color: AppColors.scaffoldColor),
-                                      )
-                                    : Text(
-                                        "${index + 1}",
-                                        style: Theme.of(context).textTheme.labelMedium!.copyWith(color: AppColors.scaffoldColor),
-                                      ),
+                                : Text(
+                                    "${numbers[index == 10 ? index - 1 : index]}",
+                                    style: Theme.of(context).textTheme.labelMedium!.copyWith(color: AppColors.scaffoldColor),
+                                  ),
                           ),
                   ),
                 ),
