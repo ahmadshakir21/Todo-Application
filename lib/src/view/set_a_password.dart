@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/src/utils/app_color.dart';
 import 'package:todo_app/src/utils/custom_button.dart';
+import 'package:todo_app/src/utils/custom_dialog.dart';
 
 import '../utils/custom_appbar.dart';
 
@@ -126,7 +127,26 @@ class _SetAPasswordState extends State<SetAPassword> {
           ],
         ),
       ),
-      floatingActionButton: CustomButton(buttonText: "Save", buttonColor: AppColors.buttonColor, onPressed: () {}),
+      floatingActionButton: CustomButton(
+          buttonText: "Save",
+          buttonColor: AppColors.buttonColor,
+          onPressed: () {
+            if (inputText.length == 4) {
+              showDialog(
+                context: context,
+                builder: (context) => CustomDialog(
+                  title: 'Setting Password',
+                  description: 'You password is $inputText, Do you accept it?',
+                  buttonText1: 'Not Agree',
+                  buttonText2: 'Agree',
+                  buttonColor1: AppColors.buttonColor,
+                  buttonColor2: AppColors.buttonColor,
+                  onPressed1: () {},
+                  onPressed2: () {},
+                ),
+              );
+            }
+          }),
     ));
   }
 }
