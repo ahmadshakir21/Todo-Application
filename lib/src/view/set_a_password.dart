@@ -18,6 +18,19 @@ class _SetAPasswordState extends State<SetAPassword> {
   String inputText = '';
   List<bool> activeContainers = [false, false, false, false];
 
+  void _showSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text(
+        'You set a password correctly',
+        style: Theme.of(context).textTheme.labelSmall!.copyWith(fontSize: 14, color: AppColors.scaffoldColor),
+      ),
+      duration: const Duration(seconds: 2),
+      backgroundColor: AppColors.primaryColor,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -136,13 +149,19 @@ class _SetAPasswordState extends State<SetAPassword> {
                 context: context,
                 builder: (context) => CustomDialog(
                   title: 'Setting Password',
-                  description: 'You password is $inputText, Do you accept it?',
+                  description: 'You password is $inputText, Do you agree?',
                   buttonText1: 'Not Agree',
                   buttonText2: 'Agree',
                   buttonColor1: AppColors.buttonColor,
                   buttonColor2: AppColors.buttonColor,
-                  onPressed1: () {},
-                  onPressed2: () {},
+                  onPressed1: () {
+                    Navigator.pop(context);
+                  },
+                  onPressed2: () {
+                    _showSnackBar(context);
+                    context.goNamed('home_screen');
+                    Navigator.pop(context);
+                  },
                 ),
               );
             }
