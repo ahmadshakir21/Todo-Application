@@ -3,11 +3,36 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_app/src/utils/custom_appbar.dart';
 import 'package:todo_app/src/utils/custom_button.dart';
 import 'package:todo_app/src/utils/custom_textfield.dart';
+import 'package:uuid/uuid.dart';
 
 import '../utils/app_color.dart';
 
-class AddTask extends StatelessWidget {
+class AddTask extends StatefulWidget {
   const AddTask({super.key});
+
+  @override
+  State<AddTask> createState() => _AddTaskState();
+}
+
+class _AddTaskState extends State<AddTask> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
+  late String id;
+  late DateTime todoDate;
+  @override
+  void initState() {
+    super.initState();
+    id = const Uuid().v4();
+    todoDate = DateTime.now();
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +53,18 @@ class AddTask extends StatelessWidget {
                   SizedBox(
                     height: height * 0.03,
                   ),
-                  CustomTextField(hintText: "Enter New Task"),
+                  CustomTextField(controller: titleController, hintText: "Enter New Task"),
                   SizedBox(
                     height: height * 0.02,
                   ),
                   CustomTextField(
+                    controller: descriptionController,
                     hintText: "New Task Description",
                     maxLines: 7,
                   )
                 ],
               ),
             ),
-            floatingActionButton: CustomButton(buttonText: "Add New Task", buttonColor: AppColors.buttonColor, onPressed: () {})));
+            floatingActionButton: CustomButton(buttonText: "Add Task", buttonColor: AppColors.buttonColor, onPressed: () {})));
   }
 }

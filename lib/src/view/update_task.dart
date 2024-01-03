@@ -6,8 +6,23 @@ import 'package:todo_app/src/utils/custom_textfield.dart';
 
 import '../utils/app_color.dart';
 
-class UpdateTask extends StatelessWidget {
+class UpdateTask extends StatefulWidget {
   const UpdateTask({super.key});
+
+  @override
+  State<UpdateTask> createState() => _UpdateTaskState();
+}
+
+class _UpdateTaskState extends State<UpdateTask> {
+  TextEditingController taskController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
+  @override
+  void dispose() {
+    taskController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +43,12 @@ class UpdateTask extends StatelessWidget {
                   SizedBox(
                     height: height * 0.03,
                   ),
-                  CustomTextField(hintText: "Enter New Task"),
+                  CustomTextField(controller: taskController, hintText: "Enter New Task"),
                   SizedBox(
                     height: height * 0.02,
                   ),
                   CustomTextField(
+                    controller: descriptionController,
                     hintText: "New Task Description",
                     maxLines: 7,
                   )

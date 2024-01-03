@@ -4,8 +4,15 @@ import 'package:todo_app/src/utils/app_color.dart';
 import 'package:todo_app/src/utils/custom_appbar.dart';
 import 'package:todo_app/src/utils/custom_button.dart';
 
-class TaskDetail extends StatelessWidget {
+class TaskDetail extends StatefulWidget {
   const TaskDetail({super.key});
+
+  @override
+  State<TaskDetail> createState() => _TaskDetailState();
+}
+
+class _TaskDetailState extends State<TaskDetail> {
+  bool isTaskImportantOrTaskActiveStar = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +33,26 @@ class TaskDetail extends StatelessWidget {
             SizedBox(
               height: height * 0.025,
             ),
-            Text(
-              "Task Title",
-              style: Theme.of(context).textTheme.labelLarge,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Task Title",
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
+                IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isTaskImportantOrTaskActiveStar = !isTaskImportantOrTaskActiveStar;
+                      });
+                    },
+                    icon: isTaskImportantOrTaskActiveStar
+                        ? const Icon(
+                            Icons.star_rounded,
+                            color: AppColors.starIconColor,
+                          )
+                        : const Icon(Icons.star_border_rounded)),
+              ],
             ),
             SizedBox(
               height: height * 0.005,

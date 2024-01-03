@@ -16,6 +16,7 @@ class AppColors {
   static const Color textColorPrimary = Color(0xFF2f3c61);
   static const Color textColorSecondary = Color(0xFF8894bb);
 
+  static const Color starIconColor = Colors.amber;
   static const Color iconColorPrimary = Color(0xFF2f3c61);
   static const Color iconColorSecondary = Color(0xFF8894bb);
 

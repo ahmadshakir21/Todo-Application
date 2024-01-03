@@ -65,6 +65,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 context.goNamed('add_task_screen');
               }),
           ListTile(
+            leading: const Icon(
+              Icons.star_border_rounded,
+              color: AppColors.primaryColor,
+            ),
+            title: Text(
+              "Favorite Tasks",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            onTap: () {},
+          ),
+          ListTile(
               leading: const Icon(Icons.lock_outline_rounded, color: AppColors.primaryColor),
               title: Text(
                 "Set a password",
@@ -122,64 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
               height: height * 0.015,
             ),
-            // Container(
-            //   width: width * 1,
-            //   height: height * 0.15,
-            //   decoration: BoxDecoration(color: AppColors.todoTileColor, borderRadius: BorderRadius.circular(10)),
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(10),
-            //     child: Column(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Text(
-            //           "40 Tasks",
-            //           style: Theme.of(context).textTheme.labelSmall,
-            //         ),
-            //         SizedBox(
-            //           height: height * 0.03,
-            //         ),
-            //         Text(
-            //           "Completion 30/40",
-            //           style: Theme.of(context).textTheme.labelMedium,
-            //         ),
-            //         SizedBox(
-            //           height: height * 0.015,
-            //         ),
-            //         Container(
-            //           width: width * 0.9,
-            //           height: height * 0.01,
-            //           decoration: BoxDecoration(
-            //             color: AppColors.todoTaskVolume,
-            //             borderRadius: BorderRadius.circular(10),
-            //           ),
-            //           child: Stack(
-            //             children: [
-            //               Container(
-            //                   width: width * 0.7,
-            //                   height: height * 0.01,
-            //                   decoration: BoxDecoration(
-            //                     color: AppColors.buttonColor,
-            //                     borderRadius: BorderRadius.circular(10),
-            //                   )),
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: height * 0.015,
-            // ),
-            // Text(
-            //   "Today Tasks",
-            //   style: Theme.of(context).textTheme.labelSmall,
-            // ),
-            // SizedBox(
-            //   height: height * 0.015,
-            // ),
+
             ListView.builder(
-              itemCount: 4,
+              itemCount: 5,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return GestureDetector(
