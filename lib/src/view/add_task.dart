@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_app/src/model/task_todo_data_model.dart';
+import 'package:todo_app/src/services/task_todo_database_helper.dart';
 import 'package:todo_app/src/utils/custom_appbar.dart';
 import 'package:todo_app/src/utils/custom_button.dart';
 import 'package:todo_app/src/utils/custom_textfield.dart';
@@ -18,13 +20,15 @@ class _AddTaskState extends State<AddTask> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  late String id;
-  late DateTime todoDate;
-  @override
-  void initState() {
-    super.initState();
-    id = const Uuid().v4();
-    todoDate = DateTime.now();
+  void addTaskTodo() async {
+    TaskTodoDataModel taskTodoDataModel = TaskTodoDataModel(
+        taskId: const Uuid().v4(),
+        taskTitle: titleController.text.trim(),
+        taskDescription: descriptionController.text.trim(),
+        taskDateTime: DateTime.now(),
+        taskIsCompleted: false,
+        taskIsImportant: false);
+    await TaskTodoDatabaseHelper.instance.insert(taskTodoDataModel: taskTodoDataModel);
   }
 
   @override
@@ -65,6 +69,6 @@ class _AddTaskState extends State<AddTask> {
                 ],
               ),
             ),
-            floatingActionButton: CustomButton(buttonText: "Add Task", buttonColor: AppColors.buttonColor, onPressed: () {})));
+            floatingActionButton: CustomButton(buttonText: "Add Task", buttonColor: AppColors.buttonColor, onPressed: addTaskTodo)));
   }
 }

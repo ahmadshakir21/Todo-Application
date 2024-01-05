@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_app/src/model/task_todo_data_model.dart';
+import 'package:todo_app/src/services/task_todo_database_helper.dart';
 import 'package:todo_app/src/utils/app_color.dart';
 import 'package:todo_app/src/utils/custom_appbar.dart';
 
@@ -16,6 +18,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Color taskCircleColor = Colors.white;
   Color borderCircleColor = AppColors.buttonColor;
   IconData iconData = Icons.done_rounded;
+
+  List<TaskTodoDataModel> taskTodoDataModel = [];
+
+  void initDb() async {
+    await TaskTodoDatabaseHelper.instance.database;
+  }
+
+  @override
+  void initState() {
+    initDb();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,58 +148,69 @@ class _HomeScreenState extends State<HomeScreen> {
               height: height * 0.015,
             ),
 
-            ListView.builder(
-              itemCount: 5,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    context.goNamed('task_detail_screen');
-                  },
-                  child: Container(
+            taskTodoDataModel.isEmpty
+                ? SizedBox(
                     width: width * 1,
-                    height: height * 0.07,
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    decoration: BoxDecoration(color: AppColors.todoTileColor, borderRadius: BorderRadius.circular(10)),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isTaskFinish = !isTaskFinish;
-                            });
-                          },
-                          child: Container(
-                            height: height * 0.065,
-                            width: width * 0.065,
-                            margin: const EdgeInsets.symmetric(horizontal: 15),
-                            decoration: BoxDecoration(
-                                color: isTaskFinish ? AppColors.containerForImage : taskCircleColor,
-                                border: Border.all(color: isTaskFinish ? AppColors.containerForImage : borderCircleColor, width: 2.5),
-                                shape: BoxShape.circle),
-                            child: isTaskFinish
-                                ? Icon(
-                                    iconData,
-                                    color: Colors.white,
-                                    size: 20,
-                                  )
-                                : null,
+                    height: height * 0.75,
+                    child: Center(
+                        child: Image.asset(
+                      'assets/4019684_2108004.jpg',
+                    )),
+                  )
+                : ListView.builder(
+                    itemCount: 5,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          context.goNamed('task_detail_screen');
+                        },
+                        child: Container(
+                          width: width * 1,
+                          height: height * 0.07,
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          decoration: BoxDecoration(color: AppColors.todoTileColor, borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isTaskFinish = !isTaskFinish;
+                                  });
+                                },
+                                child: Container(
+                                  height: height * 0.065,
+                                  width: width * 0.065,
+                                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                                  decoration: BoxDecoration(
+                                      color: isTaskFinish ? AppColors.containerForImage : taskCircleColor,
+                                      border: Border.all(color: isTaskFinish ? AppColors.containerForImage : borderCircleColor, width: 2.5),
+                                      shape: BoxShape.circle),
+                                  child: isTaskFinish
+                                      ? Icon(
+                                          iconData,
+                                          color: Colors.white,
+                                          size: 20,
+                                        )
+                                      : null,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "My Task My Tasksdakjlashdkjsah fkjasdfkjasdkhkjh",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(decoration: isTaskFinish ? TextDecoration.lineThrough : TextDecoration.none),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Expanded(
-                          child: Text(
-                            "My Task My Tasksdakjlashdkjsah fkjasdfkjasdkhkjh",
-                            style:
-                                Theme.of(context).textTheme.titleMedium!.copyWith(decoration: isTaskFinish ? TextDecoration.lineThrough : TextDecoration.none),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ],
         ),
       ),

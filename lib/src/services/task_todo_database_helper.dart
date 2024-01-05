@@ -12,7 +12,7 @@ class TaskTodoDatabaseHelper {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    _database = await _initDB('taskTodo.db');
+    _database = await _initDB('taskTodoDatabase.db');
     return _database!;
   }
 
@@ -29,10 +29,10 @@ class TaskTodoDatabaseHelper {
             ${AppConsts.taskId} integer primary key autoincrement not null,
             ${AppConsts.taskTitle} text not null,
             ${AppConsts.taskDescription} text,
-            ${AppConsts.taskTodoDate} timestamp not null,
+            ${AppConsts.taskTodoDate} text not null,
             ${AppConsts.taskIsImportant} boolean,
-            ${AppConsts.taskIsCompleted} boolean,
-          ),
+            ${AppConsts.taskIsCompleted} boolean
+          )
      ''');
   }
 
@@ -49,8 +49,11 @@ class TaskTodoDatabaseHelper {
   // read     CRUD
   Future<List<TaskTodoDataModel>> getAllTodos() async {
     final db = await instance.database;
-    final result = await db.query(AppConsts.tableNameForTodo);
-    return result.map((json) => TaskTodoDataModel.fromMap(json)).toList();
+    final result = await db.query(AppConsts.tableNameForTodo, orderBy: AppConsts.taskTodoDate);
+
+    // return result.map((json) => TaskTodoDataModel.fromMap(json)).toList();
+    List<TaskTodoDataModel> taskTodoDataModelList = result.isNotEmpty ? result.map((json) => TaskTodoDataModel.fromMap(json)).toList() : [];
+    return taskTodoDataModelList;
   }
 
   // update    CRUD

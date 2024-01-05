@@ -14,9 +14,9 @@ class TaskTodoDataModel {
       'taskId': taskId,
       'taskTitle': taskTitle,
       'taskDescription': taskDescription,
-      'taskDateTime': taskDateTime,
-      'taskIsCompleted': taskIsCompleted,
-      'taskIsImportant': taskIsImportant,
+      'taskDateTime': taskDateTime.toIso8601String(),
+      'taskIsCompleted': taskIsCompleted == true ? 1 : 0,
+      'taskIsImportant': taskIsImportant == true ? 1 : 0,
     };
   }
 
@@ -25,8 +25,8 @@ class TaskTodoDataModel {
         taskId: map['taskId'],
         taskTitle: map['taskTitle'],
         taskDescription: map['taskDescription'],
-        taskDateTime: map['taskDateTime'],
-        taskIsCompleted: map['taskIsCompleted'],
-        taskIsImportant: map['taskIsImportant']);
+        taskDateTime: DateTime.parse(map['taskDateTime'] as String),
+        taskIsCompleted: map['taskIsCompleted'] == 0,
+        taskIsImportant: map['taskIsImportant'] == 0);
   }
 }
