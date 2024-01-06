@@ -5,7 +5,6 @@ import 'package:todo_app/src/services/task_todo_database_helper.dart';
 import 'package:todo_app/src/utils/custom_appbar.dart';
 import 'package:todo_app/src/utils/custom_button.dart';
 import 'package:todo_app/src/utils/custom_textfield.dart';
-import 'package:uuid/uuid.dart';
 
 import '../utils/app_color.dart';
 
@@ -20,22 +19,18 @@ class _AddTaskState extends State<AddTask> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
-  void addTaskTodo() async {
-    TaskTodoDataModel taskTodoDataModel = TaskTodoDataModel(
-        taskId: const Uuid().v4(),
-        taskTitle: titleController.text.trim(),
-        taskDescription: descriptionController.text.trim(),
-        taskDateTime: DateTime.now(),
-        taskIsCompleted: false,
-        taskIsImportant: false);
-    await TaskTodoDatabaseHelper.instance.insert(taskTodoDataModel: taskTodoDataModel);
-  }
-
   @override
   void dispose() {
     titleController.dispose();
     descriptionController.dispose();
     super.dispose();
+  }
+
+  void addTaskTodo() async {
+    TaskTodoDataModel taskTodoDataModel =
+        TaskTodoDataModel(taskTitle: titleController.text.trim(), taskDescription: descriptionController.text.trim(), createdAt: DateTime.now());
+
+    await TaskTodoDatabaseHelper.instance.insert(taskTodoDataModel: taskTodoDataModel);
   }
 
   @override

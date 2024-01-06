@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_app/src/model/task_todo_data_model.dart';
-import 'package:todo_app/src/services/task_todo_database_helper.dart';
 import 'package:todo_app/src/utils/app_color.dart';
 import 'package:todo_app/src/utils/custom_appbar.dart';
 
@@ -20,16 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   IconData iconData = Icons.done_rounded;
 
   List<TaskTodoDataModel> taskTodoDataModel = [];
-
-  void initDb() async {
-    await TaskTodoDatabaseHelper.instance.database;
-  }
-
-  @override
-  void initState() {
-    initDb();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: height * 0.015,
             ),
 
-            taskTodoDataModel.isEmpty
+            taskTodoDataModel.isNotEmpty
                 ? SizedBox(
                     width: width * 1,
                     height: height * 0.75,
